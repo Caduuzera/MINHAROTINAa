@@ -27,6 +27,66 @@ body{
     padding:18px 15px 90px;
 }
 
+/* SENHA */
+
+#telaSenha{
+    position:fixed;
+    inset:0;
+    background:#0b0d10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
+    padding:20px;
+}
+
+.caixa-senha{
+    width:100%;
+    max-width:380px;
+    background:#14171d;
+    border:1px solid #303640;
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+}
+
+.caixa-senha h1{
+    margin-top:0;
+}
+
+.texto-senha{
+    color:#9da5b1;
+}
+
+.input-senha{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #303640;
+    background:#1b1f27;
+    color:white;
+    font-size:16px;
+    outline:none;
+}
+
+.botao-senha{
+    width:100%;
+    margin-top:12px;
+    padding:13px;
+    border-radius:10px;
+    border:0;
+    background:#7c5cff;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.erro-senha{
+    color:#ff6b6b;
+    display:none;
+    margin-bottom:0;
+}
 
 /* TOPO */
 
@@ -53,7 +113,6 @@ body{
     font-variant-numeric:tabular-nums;
 }
 
-
 /* DIAS */
 
 .dias{
@@ -71,6 +130,7 @@ body{
     background:#14171d;
     color:#9da5b1;
     text-align:center;
+    cursor:pointer;
 }
 
 .dia strong{
@@ -83,7 +143,6 @@ body{
     border-color:#7c5cff;
     color:white;
 }
-
 
 /* STATUS */
 
@@ -119,7 +178,6 @@ body{
     color:#9da5b1;
     font-size:13px;
 }
-
 
 /* LINHA DO TEMPO */
 
@@ -185,7 +243,6 @@ body{
     margin-top:5px;
 }
 
-
 /* ESTADOS */
 
 .item.atual .card{
@@ -210,7 +267,6 @@ body{
     opacity:.7;
 }
 
-
 /* OPCIONAL */
 
 .item.opcional .card{
@@ -230,7 +286,6 @@ body{
 .item.opcional .nome{
     color:#ddd8ff;
 }
-
 
 /* BOTÕES */
 
@@ -253,7 +308,6 @@ body{
     background:#7c5cff;
     border-color:#7c5cff;
 }
-
 
 /* FORMULÁRIO */
 
@@ -335,84 +389,47 @@ body{
 </style>
 </head>
 
-
 <body>
-<div id="telaSenha" style="
-position:fixed;
-inset:0;
-background:#0b0d10;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:99999;
-padding:20px;
-">
 
-<div style="
-width:100%;
-max-width:380px;
-background:#14171d;
-border:1px solid #303640;
-border-radius:20px;
-padding:25px;
-text-align:center;
-">
+<!-- TELA DE SENHA -->
 
-<h1 style="margin-top:0;">🔒 Minha Rotina</h1>
+<div id="telaSenha">
 
-<p style="color:#9da5b1;">
-Digite sua senha para entrar
-</p>
+    <div class="caixa-senha">
 
-<input
-id="senhaInput"
-type="password"
-placeholder="Senha"
-style="
-width:100%;
-padding:13px;
-border-radius:10px;
-border:1px solid #303640;
-background:#1b1f27;
-color:white;
-font-size:16px;
-outline:none;
-">
+        <h1>🔒 Minha Rotina</h1>
 
-<button
-onclick="entrar()"
-style="
-width:100%;
-margin-top:12px;
-padding:13px;
-border-radius:10px;
-border:0;
-background:#7c5cff;
-color:white;
-font-size:16px;
-font-weight:bold;
-">
+        <p class="texto-senha">
+            Digite sua senha para entrar
+        </p>
 
-Entrar
+        <input
+            id="senhaInput"
+            class="input-senha"
+            type="password"
+            autocomplete="off"
+            placeholder="Senha"
+        >
 
-</button>
+        <button
+            class="botao-senha"
+            onclick="entrar()"
+        >
+            Entrar
+        </button>
 
-<p
-id="erroSenha"
-style="
-color:#ff6b6b;
-display:none;
-margin-bottom:0;
-">
+        <p id="erroSenha" class="erro-senha">
+            Senha incorreta.
+        </p>
 
-Senha incorreta.
-
-</p>
+    </div>
 
 </div>
-</div>
+
+
+<!-- APLICATIVO -->
+
 <div class="app">
-
 
 <div class="topo">
 
@@ -430,17 +447,13 @@ Carregando...
 
 </div>
 
-
 <div
 class="relogio"
 id="relogio">
-
 00:00:00
-
 </div>
 
 </div>
-
 
 
 <!-- DIAS -->
@@ -449,7 +462,6 @@ id="relogio">
 class="dias"
 id="dias">
 </div>
-
 
 
 <!-- STATUS -->
@@ -472,15 +484,11 @@ id="escola">
 
 </div>
 
-
 <div
 class="proxima"
 id="proxima">
-
 Carregando...
-
 </div>
-
 
 <div
 class="sub"
@@ -488,7 +496,6 @@ id="subProxima">
 </div>
 
 </div>
-
 
 
 <!-- LINHA DO TEMPO -->
@@ -499,7 +506,6 @@ id="timeline">
 </div>
 
 
-
 <!-- ADICIONAR TAREFA -->
 
 <div class="secao">
@@ -508,11 +514,9 @@ id="timeline">
 Adicionar tarefa
 </h2>
 
-
 <div class="formulario">
 
 <div class="grid">
-
 
 <select
 id="diaInput"
@@ -548,8 +552,6 @@ Domingo
 
 </select>
 
-
-
 <input
 id="horaInput"
 class="input"
@@ -557,23 +559,17 @@ type="time"
 value="17:00"
 >
 
-
-
 <input
 id="nomeInput"
 class="input full"
 placeholder="Nome da tarefa"
 >
 
-
-
 <input
 id="descricaoInput"
 class="input full"
 placeholder="Descrição (opcional)"
 >
-
-
 
 <button
 class="botao principal full"
@@ -583,13 +579,11 @@ onclick="adicionarTarefa()">
 
 </button>
 
-
 </div>
 
 </div>
 
 </div>
-
 
 
 <!-- ESCOLA -->
@@ -599,7 +593,6 @@ onclick="adicionarTarefa()">
 <h2>
 Escola
 </h2>
-
 
 <div class="formulario">
 
@@ -621,7 +614,6 @@ Segunda a sexta — 07:10 até 16:30
 </div>
 
 
-
 <!-- CABELO -->
 
 <div class="secao">
@@ -629,7 +621,6 @@ Segunda a sexta — 07:10 até 16:30
 <h2>
 🧴 Programação do cabelo
 </h2>
-
 
 <div class="formulario">
 
@@ -667,7 +658,6 @@ evitar água muito quente.
 
 </div>
 
-
 </div>
 
 
@@ -676,23 +666,11 @@ Minha rotina pessoal
 </div>
 
 
-
 <script>
-
 
 /* =====================================================
    PROGRAMAÇÃO DO CABELO
-   =====================================================
-
-   Segunda  = Shampoo
-   Terça    = Day After
-   Quarta   = Shampoo + Máscara
-   Quinta   = Day After
-   Sexta    = Shampoo
-   Sábado   = Day After
-   Domingo  = Day After / preparação
-*/
-
+   ===================================================== */
 
 const cabelo = {
 
@@ -746,7 +724,6 @@ const cabelo = {
     }
 
 };
-
 
 
 /* =====================================================
@@ -880,8 +857,8 @@ const rotina = {
 4:[
 
 ["07:00",
-" Rotina matinal opcional",
-"Antes de ir para a escola: banho matinal rápido com sabonete de fragrância agradável; hidratante corporal leve + perfume/body splash no pescoço e pulsos;escovar os dentes; desodorante antitranspirante; rosto com água fria + hidratante facial com protetor solar; protetor labial, se quiser; cabelo com óleo reparador de pontas ou creme leve para controlar o frizz e alinhar os fios.",
+"✨ Rotina matinal opcional",
+"Antes de ir para a escola: banho matinal rápido com sabonete de fragrância agradável; hidratante corporal leve + perfume/body splash no pescoço e pulsos; escovar os dentes; desodorante antitranspirante; rosto com água fria + hidratante facial com protetor solar; protetor labial, se quiser; cabelo com óleo reparador de pontas ou creme leve para controlar o frizz e alinhar os fios.",
 "opcional"],
 
 ["07:10",
@@ -1045,41 +1022,30 @@ const rotina = {
 };
 
 
-
 /* =====================================================
    CONFIGURAÇÕES
    ===================================================== */
 
 let tarefasPersonalizadas =
 JSON.parse(
-localStorage.getItem(
-"tarefasPersonalizadas"
-)||"{}"
+localStorage.getItem("tarefasPersonalizadas") || "{}"
 );
-
 
 let tarefasConcluidas =
 JSON.parse(
-localStorage.getItem(
-"tarefasConcluidas"
-)||"{}"
+localStorage.getItem("tarefasConcluidas") || "{}"
 );
-
 
 let escolaAtiva =
 JSON.parse(
-localStorage.getItem(
-"escolaAtiva"
-) ?? "true"
+localStorage.getItem("escolaAtiva") ?? "true"
 );
-
 
 let diaSelecionado =
 new Date().getDay();
 
 
 const nomesDias=[
-
 "Domingo",
 "Segunda",
 "Terça",
@@ -1087,9 +1053,7 @@ const nomesDias=[
 "Quinta",
 "Sexta",
 "Sábado"
-
 ];
-
 
 
 /* =====================================================
@@ -1100,27 +1064,20 @@ function salvar(){
 
 localStorage.setItem(
 "tarefasPersonalizadas",
-JSON.stringify(
-tarefasPersonalizadas
-)
+JSON.stringify(tarefasPersonalizadas)
 );
 
 localStorage.setItem(
 "tarefasConcluidas",
-JSON.stringify(
-tarefasConcluidas
-)
+JSON.stringify(tarefasConcluidas)
 );
 
 localStorage.setItem(
 "escolaAtiva",
-JSON.stringify(
-escolaAtiva
-)
+JSON.stringify(escolaAtiva)
 );
 
 }
-
 
 
 /* =====================================================
@@ -1140,7 +1097,6 @@ Number(partes[1])
 }
 
 
-
 /* =====================================================
    PEGAR TAREFAS
    ===================================================== */
@@ -1150,7 +1106,6 @@ function pegarTarefas(dia){
 let tarefas=[
 ...(rotina[dia]||[])
 ];
-
 
 if(
 !escolaAtiva &&
@@ -1166,7 +1121,6 @@ tarefa[3]!=="escola"
 
 }
 
-
 if(
 tarefasPersonalizadas[dia]
 ){
@@ -1177,18 +1131,15 @@ tarefas.push(
 
 }
 
-
 tarefas.sort(
 (a,b)=>
 minutos(a[0])-
 minutos(b[0])
 );
 
-
 return tarefas;
 
 }
-
 
 
 /* =====================================================
@@ -1198,20 +1149,15 @@ return tarefas;
 function renderizarDias(){
 
 const elemento =
-document.getElementById(
-"dias"
-);
+document.getElementById("dias");
 
 elemento.innerHTML="";
-
 
 [1,2,3,4,5,6,0]
 .forEach(dia=>{
 
 const botao =
-document.createElement(
-"button"
-);
+document.createElement("button");
 
 botao.className=
 "dia "+
@@ -1220,7 +1166,6 @@ dia===diaSelecionado
 ?"ativo"
 :""
 );
-
 
 botao.innerHTML=`
 
@@ -1238,7 +1183,6 @@ dia===new Date().getDay()
 
 `;
 
-
 botao.onclick=function(){
 
 diaSelecionado=dia;
@@ -1251,7 +1195,6 @@ renderizar();
 
 };
 
-
 elemento.appendChild(
 botao
 );
@@ -1259,7 +1202,6 @@ botao
 });
 
 }
-
 
 
 /* =====================================================
@@ -1270,25 +1212,18 @@ function renderizar(){
 
 renderizarDias();
 
-
 const agora =
 new Date();
 
-
 const diaAtual =
 agora.getDay();
-
 
 const minutosAgora =
 agora.getHours()*60+
 agora.getMinutes();
 
-
 const tarefas =
-pegarTarefas(
-diaSelecionado
-);
-
+pegarTarefas(diaSelecionado);
 
 document.getElementById(
 "data"
@@ -1302,14 +1237,12 @@ month:"long"
 }
 );
 
-
 document.getElementById(
 "diaSelecionado"
 ).textContent =
 diaSelecionado===diaAtual
 ?"Hoje"
 :nomesDias[diaSelecionado];
-
 
 document.getElementById(
 "escola"
@@ -1324,17 +1257,12 @@ diaSelecionado<=5
 :
 "Sem escola";
 
-
 const timeline =
-document.getElementById(
-"timeline"
-);
+document.getElementById("timeline");
 
 timeline.innerHTML="";
 
-
 let proxima=null;
-
 
 tarefas.forEach(
 (tarefa,indice)=>{
@@ -1347,37 +1275,26 @@ const descricao=tarefa[2];
 
 const tipo=tarefa[3];
 
-
 const minutosTarefa =
 minutos(horario);
 
-
 const identificador =
 `${diaSelecionado}|${horario}|${nome}`;
-
 
 const concluida =
 tarefasConcluidas[
 identificador
 ]===true;
 
-
 let classe="item";
 
-
 if(concluida){
-
 classe+=" concluido";
-
 }
-
 
 if(tipo==="opcional"){
-
 classe+=" opcional";
-
 }
-
 
 if(
 diaSelecionado===diaAtual &&
@@ -1387,16 +1304,12 @@ diaSelecionado===diaAtual &&
 const proximaTarefa =
 tarefas[indice+1];
 
-
 const fim =
 proximaTarefa
 ?
-minutos(
-proximaTarefa[0]
-)
+minutos(proximaTarefa[0])
 :
 Infinity;
-
 
 if(
 minutosAgora>=minutosTarefa &&
@@ -1407,7 +1320,6 @@ classe+=" atual";
 
 }
 
-
 if(
 minutosAgora>minutosTarefa
 ){
@@ -1415,7 +1327,6 @@ minutosAgora>minutosTarefa
 classe+=" passado";
 
 }
-
 
 if(
 !proxima &&
@@ -1428,14 +1339,10 @@ proxima=tarefa;
 
 }
 
-
 const elemento =
-document.createElement(
-"div"
-);
+document.createElement("div");
 
 elemento.className=classe;
-
 
 let icone="";
 
@@ -1457,41 +1364,26 @@ icone="🪥 ";
 if(tipo==="opcional")
 icone="✨ ";
 
-
 elemento.innerHTML=`
 
 <div class="hora">
 ${horario}
 </div>
 
-
 <div class="trilho">
-
 <div class="ponto"></div>
-
 </div>
-
 
 <div class="card">
 
-
 <div class="nome">
-
 ${icone}
-
 ${escapar(nome)}
-
 </div>
-
 
 <div class="descricao">
-
-${escapar(
-descricao||""
-)}
-
+${escapar(descricao||"")}
 </div>
-
 
 ${
 tipo==="opcional"
@@ -1500,7 +1392,6 @@ tipo==="opcional"
 :
 ""
 }
-
 
 ${
 tipo==="escola"
@@ -1514,9 +1405,7 @@ tipo==="escola"
 class="botao principal"
 onclick="
 alternarConclusao(
-'${encodeURIComponent(
-identificador
-)}'
+'${encodeURIComponent(identificador)}'
 )
 ">
 
@@ -1533,11 +1422,9 @@ concluida
 `
 }
 
-
 </div>
 
 `;
-
 
 timeline.appendChild(
 elemento
@@ -1546,15 +1433,12 @@ elemento
 }
 );
 
-
-
 if(proxima){
 
 document.getElementById(
 "proxima"
 ).textContent=
 `Próximo: ${proxima[1]} às ${proxima[0]}`;
-
 
 document.getElementById(
 "subProxima"
@@ -1574,13 +1458,11 @@ diaSelecionado===diaAtual
 :
 "Veja a rotina deste dia.";
 
-
 document.getElementById(
 "subProxima"
 ).textContent="";
 
 }
-
 
 document.getElementById(
 "escolaInput"
@@ -1588,7 +1470,6 @@ document.getElementById(
 escolaAtiva;
 
 }
-
 
 
 /* =====================================================
@@ -1604,7 +1485,6 @@ decodeURIComponent(
 identificadorCodificado
 );
 
-
 tarefasConcluidas[
 identificador
 ]=
@@ -1612,13 +1492,11 @@ identificador
 identificador
 ];
 
-
 salvar();
 
 renderizar();
 
 }
-
 
 
 /* =====================================================
@@ -1632,24 +1510,20 @@ document.getElementById(
 "diaInput"
 ).value;
 
-
 const horario =
 document.getElementById(
 "horaInput"
 ).value;
-
 
 const nome =
 document.getElementById(
 "nomeInput"
 ).value.trim();
 
-
 const descricao =
 document.getElementById(
 "descricaoInput"
 ).value.trim();
-
 
 if(
 !horario||
@@ -1664,7 +1538,6 @@ return;
 
 }
 
-
 if(
 !tarefasPersonalizadas[dia]
 ){
@@ -1672,7 +1545,6 @@ if(
 tarefasPersonalizadas[dia]=[];
 
 }
-
 
 tarefasPersonalizadas[dia].push(
 [
@@ -1682,28 +1554,22 @@ descricao
 ]
 );
 
-
 salvar();
-
 
 diaSelecionado=
 Number(dia);
-
 
 document.getElementById(
 "nomeInput"
 ).value="";
 
-
 document.getElementById(
 "descricaoInput"
 ).value="";
 
-
 renderizar();
 
 }
-
 
 
 /* =====================================================
@@ -1717,13 +1583,11 @@ document.getElementById(
 "escolaInput"
 ).checked;
 
-
 salvar();
 
 renderizar();
 
 }
-
 
 
 /* =====================================================
@@ -1753,7 +1617,6 @@ return{
 }
 
 
-
 /* =====================================================
    RELÓGIO REAL
    ===================================================== */
@@ -1762,7 +1625,6 @@ function atualizarRelogio(){
 
 const agora =
 new Date();
-
 
 document.getElementById(
 "relogio"
@@ -1774,11 +1636,70 @@ hour12:false
 }
 );
 
-
 renderizar();
 
 }
 
+
+/* =====================================================
+   SENHA
+   ===================================================== */
+
+function entrar(){
+
+const senha =
+document.getElementById(
+"senhaInput"
+).value;
+
+const erro =
+document.getElementById(
+"erroSenha"
+);
+
+if(senha === "21062009"){
+
+document.getElementById(
+"telaSenha"
+).style.display="none";
+
+erro.style.display="none";
+
+document.getElementById(
+"senhaInput"
+).value="";
+
+}else{
+
+erro.style.display="block";
+
+document.getElementById(
+"senhaInput"
+).value="";
+
+}
+
+}
+
+
+/* =====================================================
+   ENTER NA SENHA
+   ===================================================== */
+
+document.getElementById(
+"senhaInput"
+).addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+
+entrar();
+
+}
+
+}
+);
 
 
 /* =====================================================
@@ -1790,37 +1711,15 @@ document.getElementById(
 ).value=
 diaSelecionado;
 
-
 renderizar();
 
+atualizarRelogio();
 
 setInterval(
 atualizarRelogio,
 1000
 );
-setInterval(
-atualizarRelogio,
-1000
-);
 
-
-</script>
-function entrar(){
-
-    const senha =
-        document.getElementById("senhaInput").value;
-
-    if(senha === "21062009"){
-
-        document.getElementById("telaSenha").style.display = "none";
-
-    }else{
-
-        document.getElementById("erroSenha").style.display = "block";
-
-    }
-
-}
 </script>
 
 </body>
