@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0d10">
+
+<title>Minha Rotina</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#0b0d10;
+    color:#f5f7fa;
+    font-family:Arial,sans-serif;
+}
+
+.app{
+    max-width:760px;
+    margin:auto;
+    padding:18px 15px 90px;
+}
+
+
+/* TOPO */
+
+.topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.titulo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.data{
+    color:#9da5b1;
+    margin-top:5px;
+    text-transform:capitalize;
+}
+
+.relogio{
+    font-size:27px;
+    font-weight:bold;
+    font-variant-numeric:tabular-nums;
+}
+
+
+/* DIAS */
+
+.dias{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    margin:20px 0 15px;
+}
+
+.dia{
+    min-width:70px;
+    padding:10px;
+    border-radius:14px;
+    border:1px solid #303640;
+    background:#14171d;
+    color:#9da5b1;
+    text-align:center;
+}
+
+.dia strong{
+    display:block;
+    color:white;
+}
+
+.dia.ativo{
+    background:#7c5cff;
+    border-color:#7c5cff;
+    color:white;
+}
+
+
+/* STATUS */
+
+.status{
+    background:#14171d;
+    border:1px solid #303640;
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:20px;
+}
+
+.status-topo{
+    display:flex;
+    justify-content:space-between;
+}
+
+.badge{
+    background:#1b1f27;
+    padding:6px 9px;
+    border-radius:20px;
+    font-size:12px;
+    color:#b7bec9;
+}
+
+.proxima{
+    margin-top:12px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.sub{
+    margin-top:5px;
+    color:#9da5b1;
+    font-size:13px;
+}
+
+
+/* LINHA DO TEMPO */
+
+.timeline{
+    position:relative;
+}
+
+.item{
+    display:grid;
+    grid-template-columns:60px 25px 1fr;
+    gap:8px;
+    min-height:85px;
+}
+
+.hora{
+    text-align:right;
+    color:#9da5b1;
+    font-size:12px;
+    padding-top:14px;
+}
+
+.trilho{
+    position:relative;
+}
+
+.trilho::before{
+    content:"";
+    position:absolute;
+    width:2px;
+    background:#303640;
+    left:10px;
+    top:0;
+    bottom:0;
+}
+
+.ponto{
+    position:absolute;
+    left:4px;
+    top:13px;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#303640;
+    border:3px solid #0b0d10;
+    z-index:2;
+}
+
+.card{
+    background:#14171d;
+    border:1px solid #303640;
+    border-radius:15px;
+    padding:12px;
+    margin-bottom:10px;
+}
+
+.nome{
+    font-weight:bold;
+}
+
+.descricao{
+    color:#9da5b1;
+    font-size:12px;
+    margin-top:5px;
+}
+
+
+/* ESTADOS */
+
+.item.atual .card{
+    border-color:#7c5cff;
+    box-shadow:0 0 0 1px #7c5cff44;
+}
+
+.item.atual .ponto{
+    background:#7c5cff;
+    box-shadow:0 0 0 5px #7c5cff22;
+}
+
+.item.concluido .ponto{
+    background:#35d07f;
+}
+
+.item.concluido .card{
+    opacity:.55;
+}
+
+.item.passado .card{
+    opacity:.7;
+}
+
+
+/* OPCIONAL */
+
+.item.opcional .card{
+    border-style:dashed;
+}
+
+.item.opcional .badge-opcional{
+    display:inline-block;
+    margin-top:8px;
+    padding:4px 7px;
+    border-radius:8px;
+    background:#1b1f27;
+    color:#b7bec9;
+    font-size:10px;
+}
+
+.item.opcional .nome{
+    color:#ddd8ff;
+}
+
+
+/* BOTÕES */
+
+.acoes{
+    display:flex;
+    gap:7px;
+    margin-top:9px;
+}
+
+.botao{
+    padding:7px 10px;
+    border-radius:10px;
+    border:1px solid #303640;
+    background:#1b1f27;
+    color:white;
+    cursor:pointer;
+}
+
+.botao.principal{
+    background:#7c5cff;
+    border-color:#7c5cff;
+}
+
+
+/* FORMULÁRIO */
+
+.secao{
+    margin-top:25px;
+}
+
+.secao h2{
+    font-size:17px;
+}
+
+.formulario{
+    background:#14171d;
+    border:1px solid #303640;
+    border-radius:16px;
+    padding:14px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+}
+
+.input{
+    width:100%;
+    padding:11px;
+    border-radius:10px;
+    border:1px solid #303640;
+    background:#1b1f27;
+    color:white;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.vazio{
+    background:#14171d;
+    border-radius:15px;
+    padding:30px;
+    text-align:center;
+    color:#9da5b1;
+}
+
+.rodape{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:10px;
+    text-align:center;
+    background:#0b0d10ee;
+    border-top:1px solid #303640;
+    color:#777f8c;
+    font-size:11px;
+}
+
+@media(max-width:450px){
+
+    .titulo{
+        font-size:24px;
+    }
+
+    .relogio{
+        font-size:22px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<div class="topo">
+
+<div>
+
+<div class="titulo">
+Minha Rotina
+</div>
+
+<div
+class="data"
+id="data">
+Carregando...
+</div>
+
+</div>
+
+
+<div
+class="relogio"
+id="relogio">
+
+00:00:00
+
+</div>
+
+</div>
+
+
+
+<!-- DIAS -->
+
+<div
+class="dias"
+id="dias">
+</div>
+
+
+
+<!-- STATUS -->
+
+<div class="status">
+
+<div class="status-topo">
+
+<span
+class="badge"
+id="diaSelecionado">
+Hoje
+</span>
+
+<span
+class="badge"
+id="escola">
+🏫 Escola
+</span>
+
+</div>
+
+
+<div
+class="proxima"
+id="proxima">
+
+Carregando...
+
+</div>
+
+
+<div
+class="sub"
+id="subProxima">
+</div>
+
+</div>
+
+
+
+<!-- LINHA DO TEMPO -->
+
+<div
+class="timeline"
+id="timeline">
+</div>
+
+
+
+<!-- ADICIONAR TAREFA -->
+
+<div class="secao">
+
+<h2>
+Adicionar tarefa
+</h2>
+
+
+<div class="formulario">
+
+<div class="grid">
+
+
+<select
+id="diaInput"
+class="input">
+
+<option value="1">
+Segunda
+</option>
+
+<option value="2">
+Terça
+</option>
+
+<option value="3">
+Quarta
+</option>
+
+<option value="4">
+Quinta
+</option>
+
+<option value="5">
+Sexta
+</option>
+
+<option value="6">
+Sábado
+</option>
+
+<option value="0">
+Domingo
+</option>
+
+</select>
+
+
+
+<input
+id="horaInput"
+class="input"
+type="time"
+value="17:00"
+>
+
+
+
+<input
+id="nomeInput"
+class="input full"
+placeholder="Nome da tarefa"
+>
+
+
+
+<input
+id="descricaoInput"
+class="input full"
+placeholder="Descrição (opcional)"
+>
+
+
+
+<button
+class="botao principal full"
+onclick="adicionarTarefa()">
+
++ Adicionar tarefa
+
+</button>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ESCOLA -->
+
+<div class="secao">
+
+<h2>
+Escola
+</h2>
+
+
+<div class="formulario">
+
+<label>
+
+<input
+type="checkbox"
+id="escolaInput"
+checked
+onchange="alterarEscola()"
+>
+
+Segunda a sexta — 07:10 até 16:30
+
+</label>
+
+</div>
+
+</div>
+
+
+
+<!-- CABELO -->
+
+<div class="secao">
+
+<h2>
+🧴 Programação do cabelo
+</h2>
+
+
+<div class="formulario">
+
+<p>
+<strong>Lavagem:</strong>
+2–3 vezes por semana.
+</p>
+
+<p>
+<strong>Shampoo:</strong>
+somente no couro cabeludo.
+</p>
+
+<p>
+<strong>Máscara:</strong>
+1 vez por semana.
+</p>
+
+<p>
+<strong>Finalização:</strong>
+com o cabelo muito úmido: leave-in/ativador → fitagem → amassar os cachos → secagem natural.
+</p>
+
+<p>
+<strong>Day After:</strong>
+fronha ou touca de cetim durante o sono.
+</p>
+
+<p>
+<strong>Temperatura:</strong>
+evitar água muito quente.
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="rodape">
+Minha rotina pessoal
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   PROGRAMAÇÃO DO CABELO
+   =====================================================
+
+   Segunda  = Shampoo
+   Terça    = Day After
+   Quarta   = Shampoo + Máscara
+   Quinta   = Day After
+   Sexta    = Shampoo
+   Sábado   = Day After
+   Domingo  = Day After / preparação
+*/
+
+
+const cabelo = {
+
+    1:{
+        tipo:"lavagem",
+        titulo:"🧴 Lavagem inteligente",
+        detalhe:
+        "Shampoo hidratante somente no couro cabeludo. Evite água muito quente. Depois, condicione conforme necessidade."
+    },
+
+    2:{
+        tipo:"dayafter",
+        titulo:"🌙 Day After",
+        detalhe:
+        "Preserve os cachos. Use fronha ou touca de cetim durante o sono. Revitalize somente se necessário."
+    },
+
+    3:{
+        tipo:"mascara",
+        titulo:"🧖 Lavagem + máscara",
+        detalhe:
+        "Shampoo hidratante somente no couro cabeludo + máscara de hidratação ou nutrição. Evite água muito quente."
+    },
+
+    4:{
+        tipo:"dayafter",
+        titulo:"🌙 Day After",
+        detalhe:
+        "Preserve a definição dos cachos e reduza o frizz. Revitalize somente se necessário."
+    },
+
+    5:{
+        tipo:"lavagem",
+        titulo:"🧴 Lavagem inteligente",
+        detalhe:
+        "Shampoo hidratante somente no couro cabeludo. Evite água muito quente. Condicione conforme necessidade."
+    },
+
+    6:{
+        tipo:"dayafter",
+        titulo:"✨ Day After / revitalização",
+        detalhe:
+        "Se necessário, umedeça os fios e faça uma pequena revitalização. Evite refazer toda a finalização sem necessidade."
+    },
+
+    0:{
+        tipo:"dayafter",
+        titulo:"🌙 Preparação para a semana",
+        detalhe:
+        "Preserve os cachos durante o sono usando fronha ou touca de cetim."
+    }
+
+};
+
+
+
+/* =====================================================
+   ROTINAS
+   ===================================================== */
+
+const rotina = {
+
+1:[
+
+["07:00",
+"✨ Rotina matinal opcional",
+"Antes de ir para a escola: banho matinal rápido com sabonete de fragrância agradável; hidratante corporal leve + perfume/body splash no pescoço e pulsos; desodorante antitranspirante; rosto com água fria + hidratante facial com protetor solar; protetor labial com cor, se quiser; cabelo com óleo reparador de pontas ou creme leve para controlar o frizz e alinhar os fios.",
+"opcional"],
+
+["07:10",
+"Escola",
+"Período escolar — 07:10 até 16:30",
+"escola"],
+
+["12:30",
+"Higiene bucal",
+"Após a refeição, se possível.",
+"boca"],
+
+["16:30",
+"Voltar da escola",
+"Início da rotina da tarde"],
+
+["21:30",
+"Banho",
+"Banho de limpeza. Na programação atual, segunda é dia de lavagem inteligente: shampoo hidratante somente no couro cabeludo e água não muito quente.",
+"banho"],
+
+["22:00",
+"Finalização do cabelo",
+"Com o cabelo muito úmido: aplicar leave-in ou ativador de cachos → fazer fitagem com os dedos → amassar os cachos para cima → deixar secar naturalmente.",
+"cabelo"],
+
+["22:30",
+"Preparar para dormir",
+"Usar fronha ou touca de cetim para reduzir o atrito e preservar os cachos.",
+"sono"]
+
+],
+
+
+2:[
+
+["07:00",
+"✨ Rotina matinal opcional",
+"Antes de ir para a escola: banho matinal rápido com sabonete de fragrância agradável; hidratante corporal leve + perfume/body splash no pescoço e pulsos; desodorante antitranspirante; rosto com água fria + hidratante facial com protetor solar; protetor labial com cor, se quiser; cabelo com óleo reparador de pontas ou creme leve para controlar o frizz e alinhar os fios.",
+"opcional"],
+
+["07:10",
+"Escola",
+"Período escolar — 07:10 até 16:30",
+"escola"],
+
+["12:30",
+"Higiene bucal",
+"Após a refeição, se possível.",
+"boca"],
+
+["16:30",
+"Voltar da escola",
+"Início da rotina da tarde"],
+
+["21:30",
+"Banho",
+"Sem shampoo neste dia. Molhar o cabelo e usar condicionador somente se sentir necessidade.",
+"banho"],
+
+["22:00",
+"Day After",
+"Preservar os cachos e controlar o frizz. Revitalizar somente se necessário.",
+"cabelo"],
+
+["22:30",
+"Preparar para dormir",
+"Usar fronha ou touca de cetim.",
+"sono"]
+
+],
+
+
+3:[
+
+["07:00",
+"✨ Rotina matinal opcional",
+"Antes de ir para a escola: banho matinal rápido com sabonete de fragrância agradável; hidratante corporal leve + perfume/body splash no pescoço e pulsos; desodorante antitranspirante; rosto com água fria + hidratante facial com protetor solar; protetor labial com cor, se quiser; cabelo com óleo reparador de pontas ou creme leve para controlar o frizz e alinhar os fios.",
+"opcional"],
+
+["07:10",
+"Escola",
+"Período escolar — 07:10 até 16:30",
+"escola"],
+
+["12:30",
+"Higiene bucal",
+"Após a refeição, se possível.",
+"boca"],
+
+["16:30",
+"Voltar da escola",
+"Início da rotina da tarde"],
+
+["21:30",
+"Banho + lavagem inteligente",
+"Shampoo hidratante somente no couro cabeludo. Evite água muito quente.",
+"banho"],
+
+["21:40",
+"Máscara de hidratação/nutrição",
+"Aplicar máscara de tratamento 1 vez por semana, conforme o produto. Enxaguar depois do tempo indicado.",
+"cabelo"],
+
+["22:00",
+"Finalização dos cachos",
+"Com o cabelo muito úmido: aplicar leave-in ou ativador → fazer fitagem com os dedos → amassar os cachos para cima → deixar secar naturalmente.",
+"cabelo"],
+
+["22:30",
+"Preparar para dormir",
+"Usar fronha ou touca de cetim para reduzir o atrito durante o sono.",
+"sono"]
+
+],
+
+
+4:[
+
+["07:00",
+" Rotina matinal opcional",
+"Antes de ir para a escola: banho matinal rápido com sabonete de fragrância agradável; hidratante corporal leve + perfume/body splash no pescoço e pulsos;escovar os dentes; desodorante antitranspirante; rosto com água fria + hidratante facial com protetor solar; protetor labial, se quiser; cabelo com óleo reparador de pontas ou creme leve para controlar o frizz e alinhar os fios.",
+"opcional"],
+
+["07:10",
+"Escola",
+"Período escolar — 07:10 até 16:30",
+"escola"],
+
+["12:30",
+"Higiene bucal",
+"Após a refeição, se possível.",
+"boca"],
+
+["16:30",
+"Voltar da escola",
+"Início da rotina da tarde"],
+
+["21:30",
+"Banho",
+"Sem shampoo. Molhar o cabelo e usar condicionador somente se sentir necessidade.",
+"banho"],
+
+["22:00",
+"Day After",
+"Preservar a definição dos cachos e controlar o frizz. Revitalizar apenas se necessário.",
+"cabelo"],
+
+["22:30",
+"Preparar para dormir",
+"Usar fronha ou touca de cetim.",
+"sono"]
+
+],
+
+
+5:[
+
+["07:00",
+"✨ Rotina matinal opcional",
+"Antes de ir para a escola: banho matinal rápido com sabonete de fragrância agradável; hidratante corporal leve + perfume/body splash no pescoço e pulsos; desodorante antitranspirante; rosto com água fria + hidratante facial com protetor solar; protetor labial com cor, se quiser; cabelo com óleo reparador de pontas ou creme leve para controlar o frizz e alinhar os fios.",
+"opcional"],
+
+["07:10",
+"Escola",
+"Período escolar — 07:10 até 16:30",
+"escola"],
+
+["12:30",
+"Higiene bucal",
+"Após a refeição, se possível.",
+"boca"],
+
+["16:30",
+"Voltar da escola",
+"Início da rotina da tarde"],
+
+["21:30",
+"Banho + lavagem inteligente",
+"Shampoo hidratante somente no couro cabeludo. Evite água muito quente. Condicione conforme necessidade.",
+"banho"],
+
+["22:00",
+"Finalização dos cachos",
+"Com o cabelo muito úmido: aplicar leave-in ou ativador → fazer fitagem → amassar os fios para cima → deixar secar naturalmente.",
+"cabelo"],
+
+["22:30",
+"Preparar para dormir",
+"Usar fronha ou touca de cetim.",
+"sono"]
+
+],
+
+
+6:[
+
+["08:00",
+"Acordar",
+"Rotina de fim de semana"],
+
+["08:10",
+"Banho",
+"Banho. Se necessário, apenas molhar e condicionar o cabelo.",
+"banho"],
+
+["08:25",
+"Higiene bucal",
+"Escovar os dentes"],
+
+["08:35",
+"Day After / revitalização",
+"Se necessário, umedecer os fios e revitalizar os cachos.",
+"cabelo"],
+
+["13:00",
+"Higiene bucal",
+"Após a refeição."],
+
+["17:00",
+"Desodorante",
+"Reaplicar se necessário."],
+
+["21:30",
+"Banho",
+"Banho de limpeza.",
+"banho"],
+
+["22:00",
+"Cuidados com o cabelo",
+"Preservar os cachos para o dia seguinte.",
+"cabelo"],
+
+["22:30",
+"Preparar para dormir",
+"Usar fronha ou touca de cetim.",
+"sono"]
+
+],
+
+
+0:[
+
+["08:00",
+"Acordar",
+"Rotina de fim de semana"],
+
+["08:10",
+"Banho",
+"Banho. Sem shampoo neste dia pela programação atual.",
+"banho"],
+
+["08:25",
+"Higiene bucal",
+"Escovar os dentes"],
+
+["08:35",
+"Day After",
+"Preservar e revitalizar os cachos somente se necessário.",
+"cabelo"],
+
+["13:00",
+"Higiene bucal",
+"Após a refeição."],
+
+["21:30",
+"Banho",
+"Banho de limpeza.",
+"banho"],
+
+["22:00",
+"Preparar o cabelo para dormir",
+"Usar fronha ou touca de cetim.",
+"cabelo"],
+
+["22:30",
+"Preparar a semana",
+"Organizar a próxima rotina.",
+"sono"]
+
+]
+
+};
+
+
+
+/* =====================================================
+   CONFIGURAÇÕES
+   ===================================================== */
+
+let tarefasPersonalizadas =
+JSON.parse(
+localStorage.getItem(
+"tarefasPersonalizadas"
+)||"{}"
+);
+
+
+let tarefasConcluidas =
+JSON.parse(
+localStorage.getItem(
+"tarefasConcluidas"
+)||"{}"
+);
+
+
+let escolaAtiva =
+JSON.parse(
+localStorage.getItem(
+"escolaAtiva"
+) ?? "true"
+);
+
+
+let diaSelecionado =
+new Date().getDay();
+
+
+const nomesDias=[
+
+"Domingo",
+"Segunda",
+"Terça",
+"Quarta",
+"Quinta",
+"Sexta",
+"Sábado"
+
+];
+
+
+
+/* =====================================================
+   SALVAR
+   ===================================================== */
+
+function salvar(){
+
+localStorage.setItem(
+"tarefasPersonalizadas",
+JSON.stringify(
+tarefasPersonalizadas
+)
+);
+
+localStorage.setItem(
+"tarefasConcluidas",
+JSON.stringify(
+tarefasConcluidas
+)
+);
+
+localStorage.setItem(
+"escolaAtiva",
+JSON.stringify(
+escolaAtiva
+)
+);
+
+}
+
+
+
+/* =====================================================
+   CONVERTER HORÁRIO
+   ===================================================== */
+
+function minutos(horario){
+
+const partes =
+horario.split(":");
+
+return (
+Number(partes[0])*60+
+Number(partes[1])
+);
+
+}
+
+
+
+/* =====================================================
+   PEGAR TAREFAS
+   ===================================================== */
+
+function pegarTarefas(dia){
+
+let tarefas=[
+...(rotina[dia]||[])
+];
+
+
+if(
+!escolaAtiva &&
+dia>=1 &&
+dia<=5
+){
+
+tarefas =
+tarefas.filter(
+tarefa =>
+tarefa[3]!=="escola"
+);
+
+}
+
+
+if(
+tarefasPersonalizadas[dia]
+){
+
+tarefas.push(
+...tarefasPersonalizadas[dia]
+);
+
+}
+
+
+tarefas.sort(
+(a,b)=>
+minutos(a[0])-
+minutos(b[0])
+);
+
+
+return tarefas;
+
+}
+
+
+
+/* =====================================================
+   DIAS
+   ===================================================== */
+
+function renderizarDias(){
+
+const elemento =
+document.getElementById(
+"dias"
+);
+
+elemento.innerHTML="";
+
+
+[1,2,3,4,5,6,0]
+.forEach(dia=>{
+
+const botao =
+document.createElement(
+"button"
+);
+
+botao.className=
+"dia "+
+(
+dia===diaSelecionado
+?"ativo"
+:""
+);
+
+
+botao.innerHTML=`
+
+<strong>
+${nomesDias[dia].slice(0,3)}
+</strong>
+
+<small>
+${
+dia===new Date().getDay()
+?"Hoje"
+:""
+}
+</small>
+
+`;
+
+
+botao.onclick=function(){
+
+diaSelecionado=dia;
+
+document.getElementById(
+"diaInput"
+).value=dia;
+
+renderizar();
+
+};
+
+
+elemento.appendChild(
+botao
+);
+
+});
+
+}
+
+
+
+/* =====================================================
+   RENDERIZAR
+   ===================================================== */
+
+function renderizar(){
+
+renderizarDias();
+
+
+const agora =
+new Date();
+
+
+const diaAtual =
+agora.getDay();
+
+
+const minutosAgora =
+agora.getHours()*60+
+agora.getMinutes();
+
+
+const tarefas =
+pegarTarefas(
+diaSelecionado
+);
+
+
+document.getElementById(
+"data"
+).textContent =
+agora.toLocaleDateString(
+"pt-BR",
+{
+weekday:"long",
+day:"2-digit",
+month:"long"
+}
+);
+
+
+document.getElementById(
+"diaSelecionado"
+).textContent =
+diaSelecionado===diaAtual
+?"Hoje"
+:nomesDias[diaSelecionado];
+
+
+document.getElementById(
+"escola"
+).textContent =
+(
+escolaAtiva &&
+diaSelecionado>=1 &&
+diaSelecionado<=5
+)
+?
+"🏫 07:10–16:30"
+:
+"Sem escola";
+
+
+const timeline =
+document.getElementById(
+"timeline"
+);
+
+timeline.innerHTML="";
+
+
+let proxima=null;
+
+
+tarefas.forEach(
+(tarefa,indice)=>{
+
+const horario=tarefa[0];
+
+const nome=tarefa[1];
+
+const descricao=tarefa[2];
+
+const tipo=tarefa[3];
+
+
+const minutosTarefa =
+minutos(horario);
+
+
+const identificador =
+`${diaSelecionado}|${horario}|${nome}`;
+
+
+const concluida =
+tarefasConcluidas[
+identificador
+]===true;
+
+
+let classe="item";
+
+
+if(concluida){
+
+classe+=" concluido";
+
+}
+
+
+if(tipo==="opcional"){
+
+classe+=" opcional";
+
+}
+
+
+if(
+diaSelecionado===diaAtual &&
+!concluida
+){
+
+const proximaTarefa =
+tarefas[indice+1];
+
+
+const fim =
+proximaTarefa
+?
+minutos(
+proximaTarefa[0]
+)
+:
+Infinity;
+
+
+if(
+minutosAgora>=minutosTarefa &&
+minutosAgora<fim
+){
+
+classe+=" atual";
+
+}
+
+
+if(
+minutosAgora>minutosTarefa
+){
+
+classe+=" passado";
+
+}
+
+
+if(
+!proxima &&
+minutosTarefa>minutosAgora
+){
+
+proxima=tarefa;
+
+}
+
+}
+
+
+const elemento =
+document.createElement(
+"div"
+);
+
+elemento.className=classe;
+
+
+let icone="";
+
+if(tipo==="escola")
+icone="🏫 ";
+
+if(tipo==="banho")
+icone="🚿 ";
+
+if(tipo==="cabelo")
+icone="✨ ";
+
+if(tipo==="sono")
+icone="🌙 ";
+
+if(tipo==="boca")
+icone="🪥 ";
+
+if(tipo==="opcional")
+icone="✨ ";
+
+
+elemento.innerHTML=`
+
+<div class="hora">
+${horario}
+</div>
+
+
+<div class="trilho">
+
+<div class="ponto"></div>
+
+</div>
+
+
+<div class="card">
+
+
+<div class="nome">
+
+${icone}
+
+${escapar(nome)}
+
+</div>
+
+
+<div class="descricao">
+
+${escapar(
+descricao||""
+)}
+
+</div>
+
+
+${
+tipo==="opcional"
+?
+`<span class="badge-opcional">OPCIONAL</span>`
+:
+""
+}
+
+
+${
+tipo==="escola"
+?""
+:
+`
+
+<div class="acoes">
+
+<button
+class="botao principal"
+onclick="
+alternarConclusao(
+'${encodeURIComponent(
+identificador
+)}'
+)
+">
+
+${
+concluida
+?"↩ Desfazer"
+:"✓ Concluir"
+}
+
+</button>
+
+</div>
+
+`
+}
+
+
+</div>
+
+`;
+
+
+timeline.appendChild(
+elemento
+);
+
+}
+);
+
+
+
+if(proxima){
+
+document.getElementById(
+"proxima"
+).textContent=
+`Próximo: ${proxima[1]} às ${proxima[0]}`;
+
+
+document.getElementById(
+"subProxima"
+).textContent=
+proxima[2]||"";
+
+}
+
+else{
+
+document.getElementById(
+"proxima"
+).textContent=
+diaSelecionado===diaAtual
+?
+"Não há mais tarefas hoje."
+:
+"Veja a rotina deste dia.";
+
+
+document.getElementById(
+"subProxima"
+).textContent="";
+
+}
+
+
+document.getElementById(
+"escolaInput"
+).checked=
+escolaAtiva;
+
+}
+
+
+
+/* =====================================================
+   CONCLUIR
+   ===================================================== */
+
+function alternarConclusao(
+identificadorCodificado
+){
+
+const identificador =
+decodeURIComponent(
+identificadorCodificado
+);
+
+
+tarefasConcluidas[
+identificador
+]=
+!tarefasConcluidas[
+identificador
+];
+
+
+salvar();
+
+renderizar();
+
+}
+
+
+
+/* =====================================================
+   ADICIONAR TAREFA
+   ===================================================== */
+
+function adicionarTarefa(){
+
+const dia =
+document.getElementById(
+"diaInput"
+).value;
+
+
+const horario =
+document.getElementById(
+"horaInput"
+).value;
+
+
+const nome =
+document.getElementById(
+"nomeInput"
+).value.trim();
+
+
+const descricao =
+document.getElementById(
+"descricaoInput"
+).value.trim();
+
+
+if(
+!horario||
+!nome
+){
+
+alert(
+"Coloque o horário e o nome da tarefa."
+);
+
+return;
+
+}
+
+
+if(
+!tarefasPersonalizadas[dia]
+){
+
+tarefasPersonalizadas[dia]=[];
+
+}
+
+
+tarefasPersonalizadas[dia].push(
+[
+horario,
+nome,
+descricao
+]
+);
+
+
+salvar();
+
+
+diaSelecionado=
+Number(dia);
+
+
+document.getElementById(
+"nomeInput"
+).value="";
+
+
+document.getElementById(
+"descricaoInput"
+).value="";
+
+
+renderizar();
+
+}
+
+
+
+/* =====================================================
+   ESCOLA
+   ===================================================== */
+
+function alterarEscola(){
+
+escolaAtiva =
+document.getElementById(
+"escolaInput"
+).checked;
+
+
+salvar();
+
+renderizar();
+
+}
+
+
+
+/* =====================================================
+   PROTEÇÃO HTML
+   ===================================================== */
+
+function escapar(texto){
+
+return String(texto)
+.replace(
+/[&<>"']/g,
+function(caractere){
+
+return{
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[caractere];
+
+}
+);
+
+}
+
+
+
+/* =====================================================
+   RELÓGIO REAL
+   ===================================================== */
+
+function atualizarRelogio(){
+
+const agora =
+new Date();
+
+
+document.getElementById(
+"relogio"
+).textContent =
+agora.toLocaleTimeString(
+"pt-BR",
+{
+hour12:false
+}
+);
+
+
+renderizar();
+
+}
+
+
+
+/* =====================================================
+   INICIAR
+   ===================================================== */
+
+document.getElementById(
+"diaInput"
+).value=
+diaSelecionado;
+
+
+renderizar();
+
+
+setInterval(
+atualizarRelogio,
+1000
+);
+setInterval(
+atualizarRelogio,
+1000
+);
+
+
+</script>
+</script>
+
+</body>
+</html>
